@@ -14,8 +14,6 @@
 # you don't need). Import paths and the module are rewritten to <module-name>.
 set -euo pipefail
 
-OLD_MODULE="roblox-studio-mcp"
-
 MODULE="${1:-}"
 if [ -z "$MODULE" ]; then
   echo "usage: scripts/new-mcp.sh <module-name> [target-dir]" >&2
@@ -25,6 +23,13 @@ fi
 # Default the directory to a sibling named after the last path segment.
 TARGET="${2:-../$(basename "$MODULE")}"
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
+
+# module to rewrite, read from this skeleton's go.mod
+OLD_MODULE="$(awk '/^module /{print $2}' "$SRC/go.mod")"
+if [ -z "$OLD_MODULE" ]; then
+  echo "error: could not read module name from $SRC/go.mod" >&2
+  exit 1
+fi
 
 if [ -e "$TARGET" ]; then
   echo "error: target '$TARGET' already exists" >&2
