@@ -53,10 +53,31 @@ done
 # Fresh module file + resolve dependencies + prove it compiles.
 (
   cd "$TARGET"
-  go mod init "$MODULE" >/dev/null 2>&1 || true
+  go mod init "$MODULE"
   go mod tidy
   go build ./...
 )
+
+# starter readme
+NAME="$(basename "$MODULE")"
+cat >"$TARGET/README.md" <<EOF
+# $NAME
+
+mcp server scaffolded from go-mcp-bootstrap.
+
+\`\`\`sh
+go run ./cmd/server   # serve over stdio
+\`\`\`
+
+add tools under internal/tools as mcpkit.Registrars and wire them into cmd/server/main.go.
+EOF
+
+# fresh git repo so the project starts with clean history
+if command -v git >/dev/null; then
+  git -C "$TARGET" init -q
+  git -C "$TARGET" add -A
+  git -C "$TARGET" commit -qm "scaffold $NAME from go-mcp-bootstrap"
+fi
 
 echo ">> done. next steps:"
 echo "     cd $TARGET"
