@@ -42,6 +42,7 @@ mkdir -p "$TARGET"
 # Copy the source tree, skipping git history, build output, and skeleton-only files.
 cp -R "$SRC/cmd" "$SRC/internal" "$TARGET/"
 [ -f "$SRC/.gitignore" ] && cp "$SRC/.gitignore" "$TARGET/"
+[ -f "$SRC/Makefile" ] && cp "$SRC/Makefile" "$TARGET/"
 
 # Rewrite every reference to the old module (import paths, server name, etc.).
 # '#' delimiter so module paths containing '/' work as replacements.
