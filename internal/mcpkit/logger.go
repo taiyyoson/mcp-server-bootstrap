@@ -5,8 +5,12 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"sync"
 	"time"
 )
+
+// serializes stderr writes so concurrent log lines don't interleave
+var writeMu sync.Mutex
 
 // Logger is a tiny leveled logger.
 //
@@ -67,7 +71,9 @@ func (l *Logger) log(lvl Level, name, msg string, kv []any) {
 			extra = " " + string(b)
 		}
 	}
+	writeMu.Lock()
 	fmt.Fprintf(os.Stderr, "%s [%s] [%s] %s%s\n", ts, name, l.scope, msg, extra)
+	writeMu.Unlock()
 }
 
 // kvToMap turns alternating key/value args into a map for structured logging.
