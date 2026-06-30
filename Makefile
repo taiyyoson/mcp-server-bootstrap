@@ -15,3 +15,13 @@ run:
 test:
 	go test ./...
 
+# sync go.mod/go.sum with imports
+tidy:
+	go mod tidy
+
+# delete build output
+clean:
+	rm -rf bin
+
+# pre-commit gate
+check: fmt vet test
