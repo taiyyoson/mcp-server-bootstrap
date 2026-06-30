@@ -9,6 +9,7 @@ import (
 	"context"
 	"os"
 	"os/signal"
+	"syscall"
 
 	"roblox-studio-mcp/internal/mcpkit"
 	"roblox-studio-mcp/internal/tools"
@@ -22,8 +23,8 @@ const (
 func main() {
 	log := mcpkit.NewLogger("mcp")
 
-	// Cancel cleanly on Ctrl-C / SIGTERM so the stdio loop unwinds.
-	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
+	// cancel cleanly on SIGINT/SIGTERM so the stdio loop unwinds
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
 
 	srv := mcpkit.Build(serverName, serverVersion,
