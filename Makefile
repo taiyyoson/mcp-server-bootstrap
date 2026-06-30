@@ -25,3 +25,15 @@ clean:
 
 # pre-commit gate
 check: fmt vet test
+
+# run all tests with the race detector
+test-race:
+	go test -race ./...
+
+# static analysis
+vet:
+	go vet ./...
+
+# format all code in place
+fmt:
+	gofmt -w .
