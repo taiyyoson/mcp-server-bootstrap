@@ -1,1 +1,12 @@
 CLAUDE*
+CLAUDE*
+  node_modules/
+  dist/
+  *.log
+  .env
+  .DS_Store
+
+  # Go build output
+  /bin/
+  /server          # binary from `go build ./cmd/server`
+  *.exe            # Windows binaries
