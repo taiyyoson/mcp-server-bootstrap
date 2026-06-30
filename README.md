@@ -1,6 +1,6 @@
 # go-mcp-bootstrap
 
-A minimal skeleton for building [MCP](https://modelcontextprotocol.io) servers in Go, on top of the official [`go-sdk`](https://github.com/modelcontextprotocol/go-sdk). Clone it, run the script, start writing tools.
+A minimal skeleton for building MCP servers in Go, on top of the official [`go-sdk`](https://github.com/modelcontextprotocol/go-sdk). Clone it, run the script, start writing tools.
 
 ## Bootstrap a new server
 
