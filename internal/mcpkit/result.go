@@ -19,8 +19,8 @@ func Textf(format string, args ...any) *mcp.CallToolResult {
 	return Text(fmt.Sprintf(format, args...))
 }
 
-// JSON marshals v to indented JSON and returns it as a text result. Useful for
-// returning structured data (instance trees, property maps) to the model.
+// JSON marshals v to indented JSON and returns it as a text result, for
+// returning structured data (maps, slices, structs) to the model
 func JSON(v any) *mcp.CallToolResult {
 	b, err := json.MarshalIndent(v, "", "  ")
 	if err != nil {
